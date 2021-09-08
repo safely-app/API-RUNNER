@@ -139,7 +139,7 @@ Feature: Dashboard Register and Login tests
   Scenario: get own profil as an admin
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -177,7 +177,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -214,7 +214,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -271,7 +271,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change profil data as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -324,7 +324,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change information you don't have access to as an admin
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -362,7 +362,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -398,7 +398,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -427,7 +427,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change nothing
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -451,7 +451,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change non existing informations
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -475,7 +475,7 @@ Feature: Dashboard Register and Login tests
   Scenario: delete non existing account
       # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -517,7 +517,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: 'ozPE#Jo5JD3K&qh!' }
+    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
     When method post
     Then status 200
     And match response contains
