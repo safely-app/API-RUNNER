@@ -16,7 +16,7 @@ def sendReport():
         bashlog = f.readlines()
 
     reportUrl = bashlog[0]
-    filename = "./tests/karate/karate-0.9.6/target/karate-reports/karate-summary-json.txt" #TO DO
+    filename = "./tests/karate/karate-0.9.6/target/karate-reports/karate-summary-json.txt"
 
     file = open(filename ,mode='r')
     content = file.read()
@@ -42,7 +42,7 @@ def sendReport():
             "title" : "Karate tests failed",
             "color": "14177041"
         }
-    ]
+        ]
 
     result = requests.post(url, json = data)
     try:
@@ -57,7 +57,7 @@ def job():
     time.sleep(30)
     sendReport()
 
-schedule.every().day.at("17:59").do(job)
+schedule.every().day.at("09:10").do(job)
 
 while True:
     schedule.run_pending()
