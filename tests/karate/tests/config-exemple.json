@@ -1,4 +1,5 @@
 {
     "basicUrl": "https://api.safely-app.fr/",
-    "adminPassword": "..."
+    "adminPassword": "...",
+    "userPassword" : "..."
 }

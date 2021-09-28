@@ -4,11 +4,12 @@ Feature: Dashboard Register and Login tests
     * def config = read('config.json')
     * def basicUrl = config.basicUrl
     * def adminPassword = config.adminPassword
+    * def userPassword = config.userPassword
 
   # REGISTER /register
   Scenario: register new user
     Given url basicUrl + '/register'
-    And request { email: "testemail@test.fr", username: "testusername", password: "testpassword" }
+    And request { email: "testemail@test.fr", username: "testusername", password:  #(userPassword) }
     When method post
     Then status 201
     And match response contains
@@ -21,7 +22,7 @@ Feature: Dashboard Register and Login tests
 
   Scenario: register existing user
     Given url basicUrl + '/register'
-    And request { email: "testemail@test.fr", username: "testusername", password: "testpassword" }
+    And request { email: "testemail@test.fr", username: "testusername", password:  #(userPassword) }
     When method post
     Then status 401
 
@@ -34,7 +35,7 @@ Feature: Dashboard Register and Login tests
   # LOGIN /login
   Scenario: login existing user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: "testpassword" }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -67,7 +68,7 @@ Feature: Dashboard Register and Login tests
   Scenario: get all users list as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -90,7 +91,7 @@ Feature: Dashboard Register and Login tests
     Scenario: get all users list as an admin
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -115,7 +116,7 @@ Feature: Dashboard Register and Login tests
   Scenario: get own profil as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -139,7 +140,7 @@ Feature: Dashboard Register and Login tests
   Scenario: get own profil as an admin
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -163,7 +164,7 @@ Feature: Dashboard Register and Login tests
     Scenario: get another profil as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -177,7 +178,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -200,7 +201,7 @@ Feature: Dashboard Register and Login tests
   Scenario: get another profil as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -214,7 +215,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -241,7 +242,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change profil data as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -271,7 +272,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change profil data as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -301,7 +302,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change information you don't have access to as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -319,12 +320,12 @@ Feature: Dashboard Register and Login tests
     And header Authorization = 'Bearer ' + token
     And request { _id: "123456id" }
     When method put
-    Then status 200
+    Then status 403
 
   Scenario: change information you don't have access to as an admin
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -342,13 +343,13 @@ Feature: Dashboard Register and Login tests
     And header Authorization = 'Bearer ' + token
     And request { _id: "123456id" }
     When method put
-    Then status 200
+    Then status 403
 
 
   Scenario: change information of another user as a user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -362,7 +363,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -384,7 +385,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change information of another user as an admin
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -398,7 +399,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -427,7 +428,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change nothing
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -451,7 +452,7 @@ Feature: Dashboard Register and Login tests
   Scenario: change non existing informations
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -469,13 +470,13 @@ Feature: Dashboard Register and Login tests
     And header Authorization = 'Bearer ' + token
     And request { NOEXIST: "NOEXIST" }
     When method put
-    Then status 200
+    Then status 403
 
   # DELETE /user/:id
   Scenario: delete non existing account
       # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
@@ -501,7 +502,7 @@ Feature: Dashboard Register and Login tests
   Scenario: delete other user as a user and own user
     # login user
     Given url basicUrl + '/login'
-    And request { email: "testemail@test.fr", password: 'testpassword' }
+    And request { email: "testemail@test.fr", password:  #(userPassword) }
     When method post
     Then status 200
     And match response contains
@@ -517,7 +518,7 @@ Feature: Dashboard Register and Login tests
 
     # login admin
     Given url basicUrl + '/login'
-    And request { email: "admin_testg@test.fr", password: #(adminPassword) }
+    And request { email: "admin_testg@test.fr", password:  #(adminPassword) }
     When method post
     Then status 200
     And match response contains
